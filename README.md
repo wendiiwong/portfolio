@@ -1,5 +1,5 @@
 # My Portfolio
-[WIP] Check out more on my **[portfolio]** page developed using React. 
+Check out more on my **[portfolio](https://wendiiwong.github.io/portfolios/)** page developed using React. 
 
 # Game Portfolio
 These are game portfolios I have worked on in free time. 
