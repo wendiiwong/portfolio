@@ -1,8 +1,10 @@
-# My Portfolio
-Check out more on my **[portfolio](https://wendiiwong.github.io/portfolios/)** page developed using React. 
+Wendi's Tech Blog 
+======
+This is a technical blog about C++ and Computer Graphics.
 
-# Game Portfolio
-These are game portfolios I have worked on in free time. 
+Some of my portfolios
+======
+Check out more on my **[portfolio](https://wendiiwong.github.io/portfolios/)** page developed using React. 
 
 # Index
 * **[Jupo the Food Catcher](https://play.google.com/store/apps/details?id=waterpine.jupo_food_catcher&hl=en_US)**
