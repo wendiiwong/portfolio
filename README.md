@@ -1,6 +1,6 @@
 Wendi's Tech Blog 
 ======
-This is a technical blog about C++ and Computer Graphics.
+This is a technical blog about C++ and Computer Graphics. (WIP)
 
 Some of my portfolios
 ======
