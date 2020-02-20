@@ -1,12 +1,12 @@
-I"�<hr />
+I"O<hr />
 <h1 id="c-compiler-build-pipeline">C++ Compiler Build Pipeline</h1>
-<p>Basically, the compiler takes each C++ source file in the working directory and compiles them into object files. These object files produced are then linked together with libraries or symbols to produce an executable files, which is our program.</p>
+<p>Every program we wrote needs to invoke a compiler to convert it into an executable file. Basically, the compiler takes each C++ source file in the working directory and compiles them into object files. The object files produced are then linked together with libraries or symbols to produce an executable files, which is our program.</p>
 
 <p><img src="/images/20200220_how_compiler_works/01.jpg" alt="" />
 <em>The compiler compiles Main.cpp to Main.obj</em></p>
 
 <p><img src="/images/20200220_how_compiler_works/02.jpg" alt="" />
-<em>The compiler compiles Main.cpp to Main.obj</em></p>
+<em>Each source file (.cpp) will produces one object (.obj) file</em></p>
 
 <p><br /><br /></p>
 <h4 id="the-compiler-works-in-three-main-stages-">The compiler works in three main stages :</h4>
@@ -25,7 +25,7 @@ Each C++ source file will then be built into a <em><strong>translation unit</str
 
 <hr />
 <h4 id="how-preprocessor-resolve-include">How preprocessor resolve #include</h4>
-<p>The most commonly used preprocessor directive would be <em><code class="highlighter-rouge">#include</code></em>, and I believe it is crucial for every C++ developer to know how it works.</p>
+<p>The most commonly used preprocessor directive would be <em><code class="highlighter-rouge">#include</code></em>, and It is crucial for every C++ developer to know how it works.</p>
 
 <p>Let’s take a look at a simple <em><code class="highlighter-rouge">Math.cpp</code></em> that add 2 numbers,</p>
 
@@ -42,7 +42,7 @@ Each C++ source file will then be built into a <em><strong>translation unit</str
 	<span class="k">return</span> <span class="n">num1</span> <span class="o">+</span> <span class="n">num2</span><span class="p">;</span>
 <span class="p">}</span></code></pre></figure>
 
-<p>Note that <em><code class="highlighter-rouge">Math.cpp</code></em> has a preprocessor directive  <em><code class="highlighter-rouge">#include</code></em> that include <em><code class="highlighter-rouge">Math.h</code></em>. What the processor will do it open the contents in <em><code class="highlighter-rouge">Math.h</code></em>, read all the contents inside, and paste it into our <em><code class="highlighter-rouge">Math.cpp</code></em>.</p>
+<p>Note that <em><code class="highlighter-rouge">Math.cpp</code></em> has a preprocessor directive  <em><code class="highlighter-rouge">#include</code></em> that include <em><code class="highlighter-rouge">Math.h</code></em>. What the processor will do is open the <em><code class="highlighter-rouge">Math.h</code></em>, read all the contents inside, and paste it into our <em><code class="highlighter-rouge">Math.cpp</code></em>.</p>
 
 <p>To have a better understanding, we could request the compiler to give us the preprocessed source that look like this:</p>
 
@@ -84,7 +84,7 @@ Each C++ source file will then be built into a <em><strong>translation unit</str
 
 <p>After preprocessor done it’s job, the compiler will then take our C++ source code and compiles them into obj files. This obj file / object file is in binary, and contains computer understandable machine code.</p>
 
-<p>We can view these code in assembly file. compiler is able to produce an assembly listing file as output.</p>
+<p>We can view these code in assembly file. The compiler is able to produce an assembly listing file as output.</p>
 
 <p>From the assembly file, we can see that our add operation has been converted into assembly instructions.
 first instruction move num1 to registry eax, and second instruction add num2 with num1 and store it in eax.</p>
