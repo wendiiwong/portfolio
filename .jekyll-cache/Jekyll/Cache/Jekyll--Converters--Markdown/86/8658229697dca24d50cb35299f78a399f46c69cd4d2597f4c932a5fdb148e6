@@ -1,12 +1,11 @@
-I"
-<hr />
+I"ø<hr />
 <h1 id="c-compiler-build-pipeline">C++ Compiler Build Pipeline</h1>
 <p>Basically, the compiler takes each C++ source file in the working directory and compiles them into object files. These object files produced are then linked together with libraries or symbols to produce an executable files, which is our program.</p>
 
-<p><img src="/wendi/images/20200220_how_compiler_works/01.jpg" alt="" />
+<p><img src="/images/20200220_how_compiler_works/01.jpg" alt="" />
 <em>The compiler compiles Main.cpp to Main.obj</em></p>
 
-<p><img src="/wendi/images/20200220_how_compiler_works/02.jpg" alt="" />
+<p><img src="/images/20200220_how_compiler_works/02.jpg" alt="" />
 <em>The compiler compiles Main.cpp to Main.obj</em></p>
 
 <p><br /><br /></p>
@@ -76,7 +75,7 @@ Each C++ source file will then be built into a <em><strong>translation unit</str
 
 <p>And if we look at the preprocessed C/C++ Source files produced :</p>
 
-<p><img src="/wendi/images/20200220_how_compiler_works/03.PNG" alt="" /></p>
+<p><img src="/images/20200220_how_compiler_works/03.PNG" alt="" /></p>
 
 <p>Noticed that the file size of <em><code class="highlighter-rouge">Main.i(1.34MB)</code></em> is much more larger than <em><code class="highlighter-rouge">Math.i(269 bytes)</code></em> even though the line of codes are similar. Thatâ€™s because we include a huge and massive <em><code class="highlighter-rouge">&lt;iostream&gt;</code></em> in <em><code class="highlighter-rouge">Main.cpp</code></em>.</p>
 
