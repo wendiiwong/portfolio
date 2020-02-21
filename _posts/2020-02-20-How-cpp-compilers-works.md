@@ -1,21 +1,20 @@
 ---
 layout: post
 title:  "How C++ Compiler Works?"
+image: 20200220_how_compiler_works/HowCompilerWorks.jpg
 date:   2020-02-20 10:02:00 +0300
 tags:   C++
 ---
 ---
-# C++ Compiler Build Pipeline
-Every program we wrote needs to invoke a compiler to convert it into an executable file. Basically, the compiler takes each C++ source file in the working directory and compiles them into object files. The object files produced are then linked together with libraries or symbols to produce an executable files, which is our program.
+Every program we wrote needs to invoke a compiler to convert the source files into an executable file. Basically, the compiler takes each C++ source file in the working directory and compiles them into object files. The object files produced are then linked together with libraries or symbols to produce an executable file, which is our program.
 
+Each source file will be compile into one object file. The picture below shows that compiler converts _`Main.cpp`_ into _`Main.obj`_.
 ![]({{ site.baseurl }}/images/20200220_how_compiler_works/01.jpg)
-*The compiler compiles Main.cpp to Main.obj*
 
+If our program has _`n`_ source files, the compiler would produces _`n`_ object files as a result. For example, the compiler will generates two object files if there are two source files provided. (_`Main.obj`_ and _`Math.obj`_ in the example below)
 ![]({{ site.baseurl }}/images/20200220_how_compiler_works/02.jpg)
-*Each source file (.cpp) will produces one object (.obj) file*
 
-<br /><br />    
-#### The compiler works in three main stages : 
+The compiler works in three main stages. However, the actual compiling process involves more steps. The detailed process is not covered in this post, as this post is meant to be beginner friendly. 
 * **Stage 1** : Preprocessing
 * **Stage 2** : Compiling
 * **Stage 3** : Linking 	    
@@ -85,19 +84,17 @@ And if we look at the preprocessed C/C++ Source files produced :
 
 ![]({{ site.baseurl }}/images/20200220_how_compiler_works/03.PNG)
 
-Noticed that the file size of _`Main.i(1.34MB)`_ is much more larger than _`Math.i(269 bytes)`_ even though the line of codes are similar. That's because we include a huge and massive _`<iostream>`_ in _`Main.cpp`_.
+Noticed that the file size of _`Main.i(1.34MB)`_ is much larger than _`Math.i(269 bytes)`_ even though the line of codes are similar. That's because we include a huge and massive _`<iostream>`_ in _`Main.cpp`_.
 
 
 
 ---
 # Stage 2 : Compiling
 
-After preprocessor done it's job, the compiler will then take our C++ source code and compiles them into obj files. This obj file / object file is in binary, and contains computer understandable machine code.
+After preprocessor done it's job, the compiler will then take our C++ translation unit and compiles them into object files. Theses object files in binary contains computer understandable machine code. It also contains metadata about the addresses of variables and functions (symbols). 
 
-We can view these code in assembly file. The compiler is able to produce an assembly listing file as output. 
+We can also request the compiler to generate the output in assembly listing files. The assembly instruction below are extracted from the generated assembly listing file _`Math.asm`_.
 
-From the assembly file, we can see that our add operation has been converted into assembly instructions.
-first instruction move num1 to registry eax, and second instruction add num2 with num1 and store it in eax.
 {% highlight assembly %}
 ; Line 5
 	mov	eax, DWORD PTR _num1$[ebp]
@@ -105,4 +102,13 @@ first instruction move num1 to registry eax, and second instruction add num2 wit
 ; Line 6
 {% endhighlight %}
 
---- Working in Progress ---
+We can see that our add operation has been converted into assembly instructions. The first instruction move _`num1`_ to registry _`eax`_, and second instruction add _`num2`_ with _`num1`_ stored inside _`eax`_ and update the result in _`eax`_.
+
+At this stage, the computer knows what to do and where to get the data required with all the information provided. But, we still need to link it.
+
+---
+# Stage 3 : Linking
+
+-- Working in Progress --
+
+---
