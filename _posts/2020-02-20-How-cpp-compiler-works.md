@@ -91,10 +91,14 @@ Noticed that the file size of _`Main.i(1.34MB)`_ is much larger than _`Math.i(26
 ---
 # Stage 2 : Compiling
 
-After preprocessor done it's job, the compiler will then take our C++ translation unit and compiles them into object files. Theses object files in binary contains computer understandable machine code. It also contains metadata about the addresses of variables and functions (symbols). 
+After preprocessor done it's job, the compiler will then take our C++ translation unit and compiles them into object files. Theses object files in binary contains computer understandable machine code, which included instructions and metadata about the addresses of variables and functions (symbols). As we can see from _`Math.obj`_ below, it contains binary data.
 
-We can also request the compiler to generate the output in assembly listing files. The assembly instruction below are extracted from the generated assembly listing file _`Math.asm`_.
+**Math.obj**  
+![]({{ site.baseurl }}/images/20200220_how_compiler_works/04.PNG)
 
+We can also request the compiler to generate the output in human-readable assembly listing files. The assembly instruction below are extracted from the generated assembly listing file _`Math.asm`_.
+
+**Math.asm**
 {% highlight assembly %}
 ; Line 5
 	mov	eax, DWORD PTR _num1$[ebp]
@@ -104,11 +108,71 @@ We can also request the compiler to generate the output in assembly listing file
 
 We can see that our add operation has been converted into assembly instructions. The first instruction move _`num1`_ to registry _`eax`_, and second instruction add _`num2`_ with _`num1`_ stored inside _`eax`_ and update the result in _`eax`_.
 
-At this stage, the computer knows what to do and where to get the data required with all the information provided. But, we still need to link it.
+Now with all the object files generated, the computer knows what to do and where the symbols and functions located. The next stage is to link them togethers.
 
 ---
 # Stage 3 : Linking
 
--- Working in Progress --
+Object files generated from compiler are standalone and unable to interact with each others, and it is the job of linker to link them together. In a nutshell, the linker links all object files and libraries together and create an executable file.
 
----
+To have a better understanding on how linker works, let's start with an simple example. Assume that we have an _`Add`_ function definition in _`Math.h`_, which received two integer parameters and return the sum of them.
+
+**Math.h**
+{% highlight cpp %}
+int Add(int num1, int num2)
+{
+	return num1 + num2;
+}
+{% endhighlight %}
+
+And we call the function in _`Main.cpp`_ as below :
+
+**Math.cpp**
+{% highlight cpp %}
+#include <iostream>
+
+int main(int argc, char* argv[]) {
+    std::cout << Add(1, 2) << std::endl;
+    return 0;
+}
+{% endhighlight %}
+
+When we compile the code, noticed that we get an compilation error C3861 telling that _'Add' identifier not found_, because _`Main.cpp`_ has no idea what _`Add`_ is. 
+![]({{ site.baseurl }}/images/20200220_how_compiler_works/05.PNG)
+
+To fix this, we can simply copy the function signature into _`Main.cpp`_, to tell the compiler that _`Add`_ is a function received two int parameters and return an int value.
+
+{% highlight cpp %}
+#include <iostream>
+
+int Add(int num1, int num2);    // <---- Add function signature
+
+int main(int argc, char* argv[]) {
+    std::cout << Add(1, 2) << std::endl;
+    return 0;
+}
+{% endhighlight %}
+
+Now the compilation is succeed.
+![]({{ site.baseurl }}/images/20200220_how_compiler_works/06.PNG)
+
+Next, let's try to build it.
+![]({{ site.baseurl }}/images/20200220_how_compiler_works/07.PNG)
+
+Noticed that we get a Linking error LNK2019 telling that we have _unresolved external symbol_, which is our _Add_ function. This is happen because the linker can't find the function to link it.
+
+Now let's include _`Math.h`_ that contains the function definition, and build again.
+{% highlight cpp %}
+#include <iostream>
+#include "Math.h"    // <---- Add this line
+
+int Add(int num1, int num2);
+
+int main(int argc, char* argv[]) {
+    std::cout << Add(1, 2) << std::endl;
+    return 0;
+}
+{% endhighlight %}
+
+This time the build is succedded, and we get an executable file ( _`HelloWorld.exe`_ ).
+![]({{ site.baseurl }}/images/20200220_how_compiler_works/08.PNG)
