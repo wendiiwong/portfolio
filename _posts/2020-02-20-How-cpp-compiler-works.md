@@ -85,7 +85,7 @@ And if we look at the size of preprocessed C/C++ Source files produced :
 
 ![]({{ site.baseurl }}/images/20200220_how_compiler_works/03.PNG)
 
-Noticed that the file size of _`Main.i(1.34MB)`_ is much larger than _`Math.i(269 bytes)`_ even though the line of codes are similar. That's because we include a huge and massive _`<iostream>`_ in _`Main.cpp`_.
+Note that the file size of _`Main.i(1.34MB)`_ is much larger than _`Math.i(269 bytes)`_ even though the line of codes are similar. That's because we include a huge and massive _`<iostream>`_ in _`Main.cpp`_.
 
 
 
@@ -147,7 +147,7 @@ int main(int argc, char* argv[]) {
 }
 {% endhighlight %}
 
-When we compile the code, noticed that we get an compilation error C3861 telling that _'Add' identifier not found_, of course, because _`Main.cpp`_ has no idea what _`Add`_ is. 
+After we compiled the code, you probably noticed that there is an compilation error C3861 telling that _'Add' identifier not found_, of course, because _`Main.cpp`_ has no idea what _`Add`_ is. 
 ![]({{ site.baseurl }}/images/20200220_how_compiler_works/05.PNG)
 
 One of the ways to fix this is to simply copy the function signature into _`Main.cpp`_, to tell the compiler that _`Add`_ is a function receives two int parameters and returns an int value.
@@ -168,7 +168,7 @@ Now the compilation is succeed.
 Next, let's try to build it.
 ![]({{ site.baseurl }}/images/20200220_how_compiler_works/07.PNG)
 
-Noticed that we get a Linking error LNK2019 telling that we have _unresolved external symbol_, named _`Add@@YAHHH@Z`_, which is our _Add_ function. This result is expected since the linker doesn't knows where to find the function required, as we only provide function signature. The linker needs to know where the function definition located.
+Note that we get a linking error LNK2019 telling that we have _unresolved external symbol_, named _`Add@@YAHHH@Z`_, which is our _Add_ function. This result is expected since the linker doesn't knows where to find the function required, as we only provide function signature. The linker needs to know where the function definition located.
 
 Now let's include _`Math.h`_ instead, which contains the function definition, and build again.
 {% highlight cpp %}
