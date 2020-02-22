@@ -127,7 +127,7 @@ int Add(int num1, int num2)
 
 And we call the function in _`Main.cpp`_ as below :
 
-**Math.cpp**
+**Main.cpp**
 {% highlight cpp %}
 #include <iostream>
 
