@@ -159,7 +159,7 @@ Now the compilation is succeed.
 Next, let's try to build it.
 ![]({{ site.baseurl }}/images/20200220_how_compiler_works/07.PNG)
 
-Noticed that we get a Linking error LNK2019 telling that we have _unresolved external symbol_, which is our _Add_ function. This is happen because the linker do not know where to find the function required.
+Noticed that we get a Linking error LNK2019 telling that we have _unresolved external symbol_, which is our _Add_ function. This happens because the linker doesn't knows where to find the function required, as we only provide function signature. The linker needs to know where the function definition located.
 
 Now let's include _`Math.h`_ instead, which contains the function definition, and build again.
 {% highlight cpp %}
