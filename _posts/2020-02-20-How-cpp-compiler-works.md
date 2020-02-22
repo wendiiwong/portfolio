@@ -100,20 +100,29 @@ We can also request the compiler to generate the output in human-readable assemb
 
 **Math.asm**
 {% highlight assembly %}
+...
+PUBLIC	?Add@@YAHHH@Z                   ; <--- Symbol name for Add function
+...
+...
+_TEXT	SEGMENT
+?Add@@YAHHH@Z PROC                      ; <--- Start of Add function
+...
 ; Line 5
-	mov	eax, DWORD PTR _num1$[ebp]
-	add	eax, DWORD PTR ?num2@@3HA		; num2
+	mov	eax, DWORD PTR _num1$[ebp]      ; <--- Assembly instruction
+	add	eax, DWORD PTR _num2$[ebp]      ; <--- Assembly instruction
 ; Line 6
+...
+?Add@@YAHHH@Z ENDP                      ; <--- End of Add function
 {% endhighlight %}
 
-We can see that our add operation has been converted into assembly instructions. The first instruction move _`num1`_ to registry _`eax`_, and second instruction add _`num2`_ with _`num1`_ stored inside _`eax`_ and update the result in _`eax`_.
+We can see that it contains symbol for _`Add`_ function, and the operation has been converted into assembly instructions. The first instruction move _`num1`_ to registry _`eax`_, and second instruction add _`num2`_ with _`num1`_ stored inside _`eax`_ and update the result in _`eax`_.
 
 Now with all the object files generated, the computer knows what to do and where the symbols and functions located. The next stage is to link them togethers.
 
 ---
 # Stage 3 : Linking
 
-Object files generated from compiler are standalone and unable to interact with each others, and it is the job of linker to link them together. In a nutshell, the linker links all object files and libraries together and create an executable file.
+Object files generated from compiler are standalone and unable to interact with each other, and it is the job of linker to link them together. In a nutshell, the linker links all object files and libraries together and create an executable file.
 
 To have a better understanding on how linker works, let's start with a simple example. Assume that we have an _`Add`_ function definition in _`Math.h`_, which received two integer parameters and return the sum of them. (Of course in real life we won't write code in this way, this is just an example to show what compiler and linker do.)
 
@@ -137,16 +146,15 @@ int main(int argc, char* argv[]) {
 }
 {% endhighlight %}
 
-When we compile the code, noticed that we get an compilation error C3861 telling that _'Add' identifier not found_, because _`Main.cpp`_ has no idea what _`Add`_ is. 
+When we compile the code, noticed that we get an compilation error C3861 telling that _'Add' identifier not found_, of course, because _`Main.cpp`_ has no idea what _`Add`_ is. 
 ![]({{ site.baseurl }}/images/20200220_how_compiler_works/05.PNG)
 
-One of the way to fix this is to simply copy the function signature into _`Main.cpp`_, to tell the compiler that _`Add`_ is a function received two int parameters and return an int value.
+One of the way to fix this is to simply copy the function signature into _`Main.cpp`_, to tell the compiler that _`Add`_ is a function receives two int parameters and returns an int value.
 
 {% highlight cpp %}
 #include <iostream>
 
-int Add(int num1, int num2);    // <---- Add function signature
-
+int Add(int num1, int num2);    // <---- Add function signature  
 int main(int argc, char* argv[]) {
     std::cout << Add(1, 2) << std::endl;
     return 0;
@@ -159,7 +167,7 @@ Now the compilation is succeed.
 Next, let's try to build it.
 ![]({{ site.baseurl }}/images/20200220_how_compiler_works/07.PNG)
 
-Noticed that we get a Linking error LNK2019 telling that we have _unresolved external symbol_, which is our _Add_ function. This happens because the linker doesn't knows where to find the function required, as we only provide function signature. The linker needs to know where the function definition located.
+Noticed that we get a Linking error LNK2019 telling that we have _unresolved external symbol_, named _`?Add@@YAHHH@Z`_ which is our _Add_ function. This result is expected since the linker doesn't knows where to find the function required, as we only provide function signature. The linker needs to know where the function definition located.
 
 Now let's include _`Math.h`_ instead, which contains the function definition, and build again.
 {% highlight cpp %}
