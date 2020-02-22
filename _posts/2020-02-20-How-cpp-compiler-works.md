@@ -22,7 +22,7 @@ We can categorise the compiler works into three main stages. However, the actual
 ---
 # Stage 1 : Preprocessing
 At the first stage, the compiler will run the _**preprocessor**_ on all the source files (only source files, no header files). 
-Each C++ source file will then be built into a _**translation unit**_ which resulted as object file in the later stage.
+Each C++ source file will then be built into a _**translation unit**_ which resulted as object file at the later stage.
 A _**translation unit**_ is just a preprocessed source file consists of an implementation file _(.c / .cpp)_ and all the headers _(.h / .hpp)_ that it included. It usually represented in a file with a _.i_ suffix. _( Note that this file is hypothetical and only produced by compiler if we specifically requested. )_
 
 Here, the _**preprocessor**_ will go through all our _**preprocessor directives**_ and resolves them before compilation stage.
