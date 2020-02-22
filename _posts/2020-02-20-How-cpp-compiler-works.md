@@ -6,7 +6,7 @@ date:   2020-02-20 10:02:00 +0300
 tags:   C++
 ---
 ---
-Every program we wrote needs to invoke a compiler to convert the source files into an executable file. Basically, the compiler takes each C++ source file in the working directory and compiles them into object files. The object files produced are then linked together with libraries or symbols to produce an executable file, which is our program.
+Every program we wrote needs to invoke a compiler to convert the source files into an executable file. Basically, the compiler takes each C++ source file in the working directory and compiles them into object files. The object files produced are then linked together with libraries and symbols to produce an executable file, which is our program.
 
 Note that each source file will be compile into one object file. The picture below shows that compiler converts _`Main.cpp`_ into _`Main.obj`_.
 ![]({{ site.baseurl }}/images/20200220_how_compiler_works/01.jpg)
