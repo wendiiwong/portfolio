@@ -8,27 +8,28 @@ tags:   C++
 ---
 Every program we wrote needs to invoke a compiler to convert the source files into an executable file. Basically, the compiler takes each C++ source file in the working directory and compiles them into object files. The object files produced are then linked together with libraries or symbols to produce an executable file, which is our program.
 
-Each source file will be compile into one object file. The picture below shows that compiler converts _`Main.cpp`_ into _`Main.obj`_.
+Note that each source file will be compile into one object file. The picture below shows that compiler converts _`Main.cpp`_ into _`Main.obj`_.
 ![]({{ site.baseurl }}/images/20200220_how_compiler_works/01.jpg)
 
 If our program has _`n`_ source files, the compiler would produces _`n`_ object files as a result. For example, the compiler will generates two object files if there are two source files provided. (_`Main.obj`_ and _`Math.obj`_ in the example below)
 ![]({{ site.baseurl }}/images/20200220_how_compiler_works/02.jpg)
 
-The compiler works in three main stages. However, the actual compiling process involves more steps. The detailed process is not covered in this post, as this post is meant to be beginner friendly. 
+We can categorise the compiler works into three main stages. However, the actual compiling process involves more steps. The detailed process is not covered in this post, as this post is meant to be beginner friendly. 
 * **Stage 1** : Preprocessing
 * **Stage 2** : Compiling
 * **Stage 3** : Linking 	    
 
 ---
 # Stage 1 : Preprocessing
-First, the compiler will run the _**preprocessor**_ on all the source files (only source files, no header files). 
+At the first stage, the compiler will run the _**preprocessor**_ on all the source files (only source files, no header files). 
 Each C++ source file will then be built into a _**translation unit**_ which resulted as object file in the later stage.
+A _**translation unit**_ is just a preprocessed source file consists of an implementation file _(.c / .cpp)_ and all the headers _(.h / .hpp)_ that it included. It usually represented in a file with a _.i_ suffix. _( Note that this file is hypothetical and only produced by compiler if we specifically requested. )_
 
-Compiler will go through all our _**preprocessor directives**_ and resolves them before compilation stage.
+Here, the _**preprocessor**_ will go through all our _**preprocessor directives**_ and resolves them before compilation stage.
 
 ---
 #### How preprocessor resolve #include ####
-The most commonly used preprocessor directive would be _`#include`_, and It is crucial for every C++ developer to know how it works.   
+The most commonly used _**preprocessor directive**_ would be _`#include`_, and It is crucial for every C++ developer to know how it works.   
 
 Let's take a look at a simple _`Math.cpp`_ that add 2 numbers,
 
@@ -47,11 +48,11 @@ int Add(int num1)
 }
 {% endhighlight %}
 
-Note that _`Math.cpp`_ has a preprocessor directive  _`#include`_ that include _`Math.h`_. What the processor will do is open the _`Math.h`_, read all the contents inside, and paste it into our _`Math.cpp`_.
+Note that _`Math.cpp`_ has a _**preprocessor directive**_  _`#include`_ that include _`Math.h`_. Here, the _**processor**_ will open _`Math.h`_, read all the contents inside, and paste it into our _`Math.cpp`_.
 
-To have a better understanding, we could request the compiler to give us the preprocessed source that look like this:
+To have a better understanding on how it works, we could request the compiler to give us the _**preprocessed source file**_. Let's have a look at _`Math.i`_
 
-**Math.i (Preprocessed C/C++ source)**
+**Math.i**
 {% highlight cpp %}
 #line 1 "D:\\wendi_blog_code_exp\\HelloWorld\\HelloWorld\\Math.cpp"
 #line 1 "D:\\wendi_blog_code_exp\\HelloWorld\\HelloWorld\\Math.h"
@@ -64,7 +65,7 @@ int Add(int num1)
 }
 {% endhighlight %}
 
-Noticed that "_`int num2 = 2`_" has been copied from _`Math.h`_ to _`Math.cpp`_. That's all, it's pretty simple.
+You may have noticed that "_`int num2 = 2`_" has been copied from _`Math.h`_ to _`Math.cpp`_. That's all the _**preprocessor**_ does, it's pretty simple.
 
 ---
 
@@ -117,14 +118,14 @@ _TEXT	SEGMENT
 
 We can see that it contains symbol for _`Add`_ function, and the operation has been converted into assembly instructions. The first instruction move _`num1`_ to registry _`eax`_, and second instruction add _`num2`_ with _`num1`_ stored inside _`eax`_ and update the result in _`eax`_.
 
-Now with all the object files generated, the computer knows what to do and where the symbols and functions located. The next stage is to link them togethers.
+Now with all the object files generated, the computer knows what to do and where the symbols and functions located. The next stage is to link them together.
 
 ---
 # Stage 3 : Linking
 
 Object files generated from compiler are standalone and unable to interact with each other, and it is the job of linker to link them together. In a nutshell, the linker links all object files and libraries together and create an executable file.
 
-To have a better understanding on how linker works, let's start with a simple example. Assume that we have an _`Add`_ function definition in _`Math.h`_, which received two integer parameters and return the sum of them. (Of course in real life we won't write code in this way, this is just an example to show what compiler and linker do.)
+To have a better understanding on how linker works, let's start with a simple example. Assume that we have an _`Add`_ function definition in _`Math.h`_, which received two integer parameters and return the sum of them. (Of course in real life we won't write code in this way, this is just an example to show how compiler and linker work.)
 
 **Math.h**
 {% highlight cpp %}
@@ -167,7 +168,7 @@ Now the compilation is succeed.
 Next, let's try to build it.
 ![]({{ site.baseurl }}/images/20200220_how_compiler_works/07.PNG)
 
-Noticed that we get a Linking error LNK2019 telling that we have _unresolved external symbol_, named _`?Add@@YAHHH@Z`_ which is our _Add_ function. This result is expected since the linker doesn't knows where to find the function required, as we only provide function signature. The linker needs to know where the function definition located.
+Noticed that we get a Linking error LNK2019 telling that we have _unresolved external symbol_, named _`Add@@YAHHH@Z`_ which is our _Add_ function. This result is expected since the linker doesn't knows where to find the function required, as we only provide function signature. The linker needs to know where the function definition located.
 
 Now let's include _`Math.h`_ instead, which contains the function definition, and build again.
 {% highlight cpp %}
