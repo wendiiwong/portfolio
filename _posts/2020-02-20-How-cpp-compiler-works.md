@@ -115,7 +115,7 @@ Now with all the object files generated, the computer knows what to do and where
 
 Object files generated from compiler are standalone and unable to interact with each others, and it is the job of linker to link them together. In a nutshell, the linker links all object files and libraries together and create an executable file.
 
-To have a better understanding on how linker works, let's start with an simple example. Assume that we have an _`Add`_ function definition in _`Math.h`_, which received two integer parameters and return the sum of them.
+To have a better understanding on how linker works, let's start with a simple example. Assume that we have an _`Add`_ function definition in _`Math.h`_, which received two integer parameters and return the sum of them. (Of course in real life we won't write code in this way, this is just an example to show what compiler and linker do.)
 
 **Math.h**
 {% highlight cpp %}
@@ -140,7 +140,7 @@ int main(int argc, char* argv[]) {
 When we compile the code, noticed that we get an compilation error C3861 telling that _'Add' identifier not found_, because _`Main.cpp`_ has no idea what _`Add`_ is. 
 ![]({{ site.baseurl }}/images/20200220_how_compiler_works/05.PNG)
 
-To fix this, we can simply copy the function signature into _`Main.cpp`_, to tell the compiler that _`Add`_ is a function received two int parameters and return an int value.
+One of the way to fix this is to simply copy the function signature into _`Main.cpp`_, to tell the compiler that _`Add`_ is a function received two int parameters and return an int value.
 
 {% highlight cpp %}
 #include <iostream>
@@ -159,14 +159,12 @@ Now the compilation is succeed.
 Next, let's try to build it.
 ![]({{ site.baseurl }}/images/20200220_how_compiler_works/07.PNG)
 
-Noticed that we get a Linking error LNK2019 telling that we have _unresolved external symbol_, which is our _Add_ function. This is happen because the linker can't find the function to link it.
+Noticed that we get a Linking error LNK2019 telling that we have _unresolved external symbol_, which is our _Add_ function. This is happen because the linker do not know where to find the function required.
 
-Now let's include _`Math.h`_ that contains the function definition, and build again.
+Now let's include _`Math.h`_ instead, which contains the function definition, and build again.
 {% highlight cpp %}
 #include <iostream>
 #include "Math.h"    // <---- Add this line
-
-int Add(int num1, int num2);
 
 int main(int argc, char* argv[]) {
     std::cout << Add(1, 2) << std::endl;
