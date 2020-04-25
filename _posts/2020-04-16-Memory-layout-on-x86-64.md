@@ -11,7 +11,7 @@ A good understanding on memory layout is essential for every programmer, especia
 
 ---
 # Overview
-This article covers the basic of program's memory layout on x86-64 architecture, including how CPU allocates memory when a C/C++ program is executed, and where are those variables stored? 
+This article covers the basic of program's memory layout on x86-64 architecture, including how CPU allocates memory when a C/C++ program is executed, and where are those variables stored. 
 
 **Here are the subtopics covered :**
 * [Memory representaion](#memory-representation)
@@ -21,14 +21,14 @@ This article covers the basic of program's memory layout on x86-64 architecture,
 
 The amount of memory allocated for a running program and how it is allocated are architecture-dependent and OS-dependent. For instance, the amount of memory allocated to the program running on an Android phone and a game console PS4 is different. Thus, it is important to mention which OS and architecture we are using here.
 
-The explanation in this article is based on _**64-bit**_ CPU running _**macOS**_ (based on Unix Operating System). Furthermore, _**lldb**_ is used for the demonstration.
+The explanation in this article is based on a _**64-bit**_ CPU running _**macOS**_ (based on Unix Operating System). Furthermore, _**lldb**_ is used for the demonstration.
 
 ---
 # Memory Representation
 A typical memory representation of a C++ program can be divided into 5 sections. In fact, there are more than just these 5 sections, but these are the sections we are interested in for the moment.
 
 1. **Code Segment (Text Segment)**  
-    Contains machine instructions from compiled program, which represented in binary form. Obviously, we can always diassemble these instructions using debugging tool to convert it into human-readable assemly language.  
+    Contains machine instructions from compiled program, which represented in binary form. Obviously, we can always disassemble these instructions using debugging tool to convert it into human-readable assemly language.  
 
     Code segment is usually read-only, since we don't want to accidentally modify the instructions.
 
@@ -94,7 +94,7 @@ This register stores machine instruction to be executed next.
 
 ---
 # Function Call Mechanism
-It's easier to understand program stack by studying how a function is called and how function parameters are stored in the memory. In addition, it is beneficial to have basic knowledge in assembly, as you can easily understand what happen in program stack and registers by running through each line of code. Therefore, a simple diassembled C++ program is used to demonstrate function call mechanism. 
+It's easier to understand program stack by studying how a function is called and how function parameters are stored in the memory. In addition, it is beneficial to have basic knowledge in assembly, as you can easily understand what happen in program stack and registers by running through each line of code. Therefore, a simple disassembled C++ program is used to demonstrate function call mechanism. 
 
 Here is the code used for demonstration:  
 {% highlight cpp linenos %}
@@ -233,7 +233,7 @@ Below are the steps :
 1. `Rsp` is set back to where `rbp` is pointing.
 This is done by adding 16 bytes back to `rsp`.
 
-2. Next steps are similar for all exiting function. The old `rbp` value is poped from stack, follow by _**"return address"**_.
+2. Next steps are similar for all exiting function. The old `rbp` value is poped from stack, followed by _**"return address"**_.
 
 Now the control is returning to `main` function, noticed that `rbp` is pointing to the base of `main stack frame` and `rsp` to the top of stack as below.
 ![]({{ site.baseurl }}/images/20200416_memory-layout-on-x86-64/stack_exp_04.jpg)
