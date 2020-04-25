@@ -67,8 +67,11 @@ h6 {
 }
 
 blockquote {
-  margin: 30px -100px;
-  font-size: 28px;
+  border-left: .25em solid #bfe2ef;
+  color: #6a737d;
+  padding: 0 1em;
+  margin: 30px 80px;
+  font-size: 20px;
   line-height: 45px;
   letter-spacing: 0.5px;
   font-style: normal;
